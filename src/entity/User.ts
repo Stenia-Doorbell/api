@@ -34,7 +34,7 @@ export class User {
     @IsNotEmpty()
     role: string;
 
-    @Column("text", {default: ""})
+    @Column("text", {nullable: true})
     subscription: string;
 
     @OneToMany(() => Log, log => log.user)
