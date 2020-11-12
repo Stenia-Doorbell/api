@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Push Demo</title>
+    <script type="application/javascript" src="/client.js"></script>
+    <script>
+        let button = document.getElementById('btn').addEventListener('click', function() {
+            new Promise(function(resolve, reject) {
+                const permissionResult = Notification.requestPermission(function(result) {
+                    resolve(result);
+                });
+
+                if (permissionResult) {
+                    permissionResult.then(resolve, reject);
+                }
+            })
+                .then(function(permissionResult) {
+                    if (permissionResult !== 'granted') {
+                        throw new Error('We weren\'t granted permission.');
+                    }
+                });
+
+        })
+    </script>
+</head>
+
+<body>
+Service Worker Demo
+<button id="btn">Send me doorbell notifications on this device!</button>
+</body>
+</html>
