@@ -11,6 +11,13 @@ async function run() {
     console.log('Registering service worker');
     const registration = await navigator.serviceWorker.
     register('/worker.js', {scope: '/'});
+    Notification.requestPermission(function(result) {
+        if (result === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification('Notification with ServiceWorker');
+            });
+        }
+    });
 
     console.log('Registered service worker');
 
